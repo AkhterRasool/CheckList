@@ -1,8 +1,14 @@
-ul {
-    list-style: none;
-    padding: 0 20%;
+table {
+    width: 100%;
+    padding: 10px 20%;
 }
 
-li {
-    border-bottom: 1px solid rgb(199, 196, 196);
+tr {
+    border-bottom: 10px solid lightgrey;
+}
+
+.no-item-row {
+    border-bottom: 0px;
+    text-align: center;
+    color: grey;
 }

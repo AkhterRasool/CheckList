@@ -1,11 +1,10 @@
 import React from 'react';
-import './CheckListItem.css';
+import './CheckListItemRow.css';
 
-function CheckListItem(props){
+function CheckListItemRow(props){
     
     return (
-        <div className='check-list-item'>
-            <table>
+            <tr width='100%'>
                 <td width='10%' className='td-checkbox'>
                     <input type='checkbox'/>
                 </td>
@@ -15,11 +14,8 @@ function CheckListItem(props){
                 <td width='20%' className='td-remove'>
                     <button onClick={props.onRemoveButtonClicked}>Remove</button>
                 </td>
-            </table>
-            
-            
-        </div>
+            </tr>
     );
 }
 
-export default CheckListItem;
+export default CheckListItemRow;

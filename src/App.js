@@ -1,50 +1,34 @@
 import CheckListView from './components/CheckListView/CheckListView';
 import CheckListForm from './components/CheckListForm/CheckListForm';
-import React from 'react';
+import React, {useState } from 'react';
 
-class App extends React.Component {
-   appName = 'STT CheckList';
+function App() {
+  const appName = 'STT CheckList';
+  const [listItems, setItems] = useState([]);
 
-   constructor() {
-     super();
-      this.state = {
-        items : []
-      }
-      this.addItem = this.addItem.bind(this);
-      this.removeItem = this.removeItem.bind(this);
-   }
+  function addItem(e) {
+    e.preventDefault();
+    const itemField = document.getElementById('item-name-field');
+    const newArr = [...listItems];
+    newArr.push(itemField.value);
+    setItems(newArr);
+    itemField.value = '';
+  }
 
-   render() {
-    return (
-      <div>
-        <h1 style={{textAlign: 'center'}}>{this.appName}</h1>
-        <CheckListForm onSubmit={this.addItem}/>
-        <CheckListView items={this.state.items} onRemoveButtonClicked={this.removeItem}/>
-      </div>
-    );
-   }
+  function removeItem(e) {
+    const target = e.target;
+    const itemToRemove = target.parentNode.previousSibling.innerText;
+    setItems(listItems.filter(item => item !== itemToRemove));
+  }
 
-
-    addItem(e) {
-      e.preventDefault();
-      const itemField = document.getElementById('item-name-field');
-      const item = itemField.value;
-      const newItemList = this.state.items;
-      newItemList.push(item);
-      this.setState({items: newItemList});
-      itemField.value = '';
-    }
-
-    removeItem(e) {
-      const target = e.target;
-      console.log(target);
-      const itemToRemove = target.parentNode.previousSibling.innerText;
-      let newItemList = this.state.items.filter(
-        currItem => currItem !== itemToRemove
-      );
-      this.setState({items: newItemList});
-    }
-
+  return (
+    <div>
+      <h1 style={{textAlign: 'center'}}>{appName}</h1>
+      <CheckListForm onSubmit={addItem}/>
+      <CheckListView items={listItems} onRemoveButtonClicked={removeItem}/>
+    </div>
+  );
+  
 }
 
 export default App;

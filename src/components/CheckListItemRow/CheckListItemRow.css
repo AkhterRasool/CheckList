@@ -1,0 +1,9 @@
+tr td{
+    padding: 20px 0;
+    border-bottom: 1px solid lightgrey;
+}
+.td-remove button{
+    color: red;
+    padding: 10px;
+    border-radius: 3px;
+}
