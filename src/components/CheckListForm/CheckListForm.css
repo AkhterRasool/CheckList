@@ -1,0 +1,21 @@
+form {
+    padding: 10px 20%;
+}
+
+input {
+    height: 40px;
+    border-radius: 4px;
+    padding: 5px 10px;
+    border: 2px solid black;
+}
+
+input[type=text] {
+    width: 80%;
+    margin-right: 1%;
+}
+
+input[type=submit] {
+    width: 9%;
+    background: green;
+    color: white;
+}

@@ -1,0 +1,8 @@
+ul {
+    list-style: none;
+    padding: 0 20%;
+}
+
+li {
+    border-bottom: 1px solid rgb(199, 196, 196);
+}
