@@ -6,26 +6,21 @@ function App() {
   const appName = 'STT CheckList';
   const [listItems, setItems] = useState([]);
 
-  function addItem(e) {
-    e.preventDefault();
-    const itemField = document.getElementById('item-name-field');
+  function addItem(newItem) {
     const newArr = [...listItems];
-    newArr.push(itemField.value);
+    newArr.push(newItem);
     setItems(newArr);
-    itemField.value = '';
   }
 
-  function removeItem(e) {
-    const target = e.target;
-    const itemToRemove = target.parentNode.previousSibling.innerText;
+  function removeItem(itemToRemove) {
     setItems(listItems.filter(item => item !== itemToRemove));
   }
 
   return (
     <div>
       <h1 style={{textAlign: 'center'}}>{appName}</h1>
-      <CheckListForm onSubmit={addItem}/>
-      <CheckListView items={listItems} onRemoveButtonClicked={removeItem}/>
+      <CheckListForm handleAddItem={addItem}/>
+      <CheckListView items={listItems} handleRemoveItem={removeItem}/>
     </div>
   );
   

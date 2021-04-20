@@ -12,7 +12,7 @@ function CheckListView(props) {
                 {
                     props.items.map(item => {
                         return (
-                            <CheckListItemRow key={item} onRemoveButtonClicked={props.onRemoveButtonClicked} itemName={item}/> 
+                            <CheckListItemRow key={item} handleRemoveItem={props.handleRemoveItem} itemName={item}/> 
                         )
                     })
                 }
