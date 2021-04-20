@@ -1,5 +1,5 @@
-import CheckListView from './components/CheckListView/CheckListView';
-import CheckListForm from './components/CheckListForm/CheckListForm';
+import CheckListView from './components/CheckListView';
+import CheckListForm from './components/CheckListForm';
 import React, {useState } from 'react';
 
 function App() {

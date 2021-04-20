@@ -1,5 +1,5 @@
 import React from 'react';
-import CheckListItemRow from '../CheckListItemRow/CheckListItemRow';
+import CheckListItemRow from '../CheckListItemRow';
 import './CheckListView.css'
 
 function CheckListView(props) {
