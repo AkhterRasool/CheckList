@@ -1,28 +1,51 @@
-import React , {useEffect, useState} from 'react';
+import React from 'react';
+import {Form, Formik } from 'formik';
 import './CheckListForm.css'
 
 function CheckListForm(props) {
 
-    const [itemName, setItemName] = useState('');
+    const itemMinLength = 4
 
-    function submitForm(e) {
-        e.preventDefault();
-        props.handleAddItem(itemName);
-        setItemName('');
-    }
-
-    function handleOnChange(e) {
-        setItemName(e.target.value);
-    }
+    const validate = value => {
+        const input = value.input;
+        const errors = {};
+        if (input.length === 0 || input === '') {
+            errors.input = 'Item cannot be empty.';
+        } else if (input.length < itemMinLength) {
+            errors.input = `Item must have at least ${itemMinLength} characters.`
+        }
+        props.setError(errors.input);
+        return errors;
+    };
 
     return (
-        <form onSubmit={submitForm}>
-            <label>
-                <input type='text' id='item-name-field' placeholder='Please enter an item' onChange={handleOnChange} value={itemName}/>
-                <input type='submit' value='Add Item'/>
-            </label>
-        </form>
-    );
+        <Formik
+            initialValues={{input: ''}}
+            onSubmit={ values => {
+                    const item = values.input
+                    props.handleAddItem(item)
+                }
+            }
+            validate = {validate}
+        >
+            {
+                formik => (
+                    <Form onSubmit={formik.handleSubmit}>
+                        <input 
+                            type="text"
+                            id="item-name-field"
+                            name="input"
+                            placeholder='Please enter an item'
+                            onBlur={formik.handleBlur}
+                            onChange={formik.handleChange}/>
+
+                        <input type="submit" value='Add Item'/>
+                    </Form>
+                )
+            }
+        </Formik>
+        
+    )
 }
 
 export default CheckListForm;

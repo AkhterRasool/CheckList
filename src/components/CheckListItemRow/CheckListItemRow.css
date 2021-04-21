@@ -2,8 +2,15 @@ tr td{
     padding: 20px 0;
     border-bottom: 1px solid lightgrey;
 }
-.td-remove button{
-    color: red;
+
+.td-remove {
+    text-align: center;
+}
+
+.td-remove button {
+    color: #fff;
+    background: #e65855;
+    border-color: red;
     padding: 10px;
-    border-radius: 3px;
+    border-radius: 10px;
 }

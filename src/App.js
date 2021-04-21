@@ -1,15 +1,27 @@
 import CheckListView from './components/CheckListView';
 import CheckListForm from './components/CheckListForm';
 import React, {useState } from 'react';
+import {Alert, Typography } from 'antd';
+
+const { Title } = Typography;
 
 function App() {
   const appName = 'STT CheckList';
   const [listItems, setItems] = useState([]);
+  const [error, setError] = useState('');
 
   function addItem(newItem) {
-    const newArr = [...listItems];
-    newArr.push(newItem);
-    setItems(newArr);
+    if (listItems.indexOf(newItem) > -1) {
+      setError("This item is added already.")
+      setTimeout(() => {
+        setError('')
+      }, 2000)
+      return
+    }
+    const newArr = [...listItems]
+    newArr.push(newItem)
+    setItems(newArr)
+    setError('')
   }
 
   function removeItem(itemToRemove) {
@@ -18,8 +30,11 @@ function App() {
 
   return (
     <div>
-      <h1 style={{textAlign: 'center'}}>{appName}</h1>
-      <CheckListForm handleAddItem={addItem}/>
+      <Title level={2} align='center'>{appName}</Title>
+      <Title level={4} align='center'>
+        <Alert message={error} type="error" style={{color: 'red'}}/>
+      </Title>
+      <CheckListForm handleAddItem={addItem} setError={setError}/>
       <CheckListView items={listItems} handleRemoveItem={removeItem}/>
     </div>
   );
