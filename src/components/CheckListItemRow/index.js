@@ -2,8 +2,11 @@ import React from 'react';
 import { Button } from 'antd';
 
 import './CheckListItemRow.css';
+import removeItemAction from '../../state/actioncreators/RemoveItemAction';
+import { useDispatch } from 'react-redux';
 
 function CheckListItemRow(props) {
+    const dispatch = useDispatch();
     return (
             <tr width='100%'>
                 <td width='10%' className='td-checkbox'>
@@ -13,7 +16,7 @@ function CheckListItemRow(props) {
                     {props.itemName}
                 </td>
                 <td width='20%' className='td-remove'>
-                    <Button type="primary" onClick={() => props.handleRemoveItem(props.itemName)} danger>Remove</Button>
+                    <Button type="primary" onClick={() => dispatch(removeItemAction(props.itemName))} danger>Remove</Button>
                 </td>
             </tr>
     );

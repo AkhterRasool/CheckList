@@ -1,9 +1,11 @@
 import { fireEvent, render, screen } from "@testing-library/react"
+import { Provider } from "react-redux"
 import CheckListForm from '.'
+import checkListStore from "../../state/CheckListStore"
 
 test("Check if form is rendered", () => {
 
-    render(<CheckListForm />)
+    render(<Provider store={checkListStore}><CheckListForm /></Provider>)
     const input = screen.queryByRole('textbox')
     expect(input).toBeTruthy();
 
@@ -13,7 +15,7 @@ test("Check if form is rendered", () => {
 
 test ("Check if input value can be changed", () => {
 
-    render(<CheckListForm />)
+    render(<Provider store={checkListStore}><CheckListForm /></Provider>)
     const input = screen.queryByRole('textbox')
     expect(input.value).toBe('')
 

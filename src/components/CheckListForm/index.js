@@ -1,10 +1,14 @@
 import React from 'react';
 import {Form, Formik } from 'formik';
 import './CheckListForm.css'
+import checkListStore from '../../state/CheckListStore';
+import addItemAction from '../../state/actioncreators/AddItemAction';
+import { useDispatch } from 'react-redux';
 
 function CheckListForm(props) {
 
     const itemMinLength = 4
+    const dispatch = useDispatch();
 
     const validate = value => {
         const input = value.input;
@@ -18,14 +22,20 @@ function CheckListForm(props) {
         return errors;
     };
 
+    const handleSubmission = (values) => {
+        const item = values.input
+        const state = checkListStore.getState()
+        if (state.items.indexOf(item) > -1) {
+            console.log("Item added already."); //For now display the error in console.
+            return;
+        }
+        dispatch(addItemAction(item))
+    }
+
     return (
         <Formik
             initialValues={{input: ''}}
-            onSubmit={ values => {
-                    const item = values.input
-                    props.handleAddItem(item)
-                }
-            }
+            onSubmit={ handleSubmission}
             validate = {validate}
         >
             {

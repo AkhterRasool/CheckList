@@ -1,5 +1,7 @@
 import {render, screen} from '@testing-library/react'
+import { Provider } from 'react-redux';
 import CheckListItemRow from '.';
+import checkListStore from '../../state/CheckListStore';
 
 let tableRowContainer = null;
 
@@ -14,7 +16,7 @@ beforeEach(() => {
 
 test('Check if table row renders', () => {
     const randomItem = 'Buy Groceries'
-    const elem = render(<CheckListItemRow itemName={randomItem}/>, {container: tableRowContainer});
+    render(<Provider store={checkListStore}><CheckListItemRow itemName={randomItem}/></Provider>, {container: tableRowContainer});
 
     expect(screen.queryByRole('checkbox')).toBeTruthy()
     expect(screen.queryByText(randomItem)).toBeTruthy()
