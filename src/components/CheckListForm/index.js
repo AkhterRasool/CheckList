@@ -4,8 +4,9 @@ import './CheckListForm.css'
 import checkListStore from '../../state/CheckListStore';
 import addItemAction from '../../state/actioncreators/AddItemAction';
 import { useDispatch } from 'react-redux';
+import errorMessage from '../../state/actioncreators/ErrorMessageAction';
 
-function CheckListForm(props) {
+function CheckListForm() {
 
     const itemMinLength = 4
     const dispatch = useDispatch();
@@ -18,7 +19,7 @@ function CheckListForm(props) {
         } else if (input.length < itemMinLength) {
             errors.input = `Item must have at least ${itemMinLength} characters.`
         }
-        props.setError(errors.input);
+        dispatch(errorMessage(errors.input));
         return errors;
     };
 
