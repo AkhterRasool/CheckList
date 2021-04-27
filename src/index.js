@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
-import checkListStore from './state/CheckListStore';
+import checkListStore from './state/store/CheckListStore';
 
 ReactDOM.render(
   <React.StrictMode>

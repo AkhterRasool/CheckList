@@ -1,4 +1,4 @@
-import Actions from './Actions'
+import Actions from '../../constants/Actions'
 
 const initialValue = {
     items: []

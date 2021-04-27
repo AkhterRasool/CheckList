@@ -1,10 +1,10 @@
 import {fireEvent, render, screen, act} from '@testing-library/react'
-import Actions from './Actions'
+import Actions from '../../constants/Actions'
 import checkListReducer from './CheckListReducer'
-import checkListStore from './CheckListStore'
+import checkListStore from '../store/CheckListStore'
 import { Provider } from "react-redux"
 
-import Home from '../components/Home'
+import Home from '../../components/Home'
 
 test("Check if reducer adds item to list", () => {
     const initialState = {

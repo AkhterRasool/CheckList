@@ -1,4 +1,4 @@
-import Actions from "../Actions"
+import Actions from "../../constants/Actions"
 
 export default function addItemAction(item) {
     return {

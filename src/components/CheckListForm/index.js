@@ -1,7 +1,7 @@
 import React from 'react';
 import {Form, Formik } from 'formik';
 import './CheckListForm.css'
-import checkListStore from '../../state/CheckListStore';
+import checkListStore from '../../state/store/CheckListStore';
 import addItemAction from '../../state/actioncreators/AddItemAction';
 import { useDispatch } from 'react-redux';
 import errorMessage from '../../state/actioncreators/ErrorMessageAction';
