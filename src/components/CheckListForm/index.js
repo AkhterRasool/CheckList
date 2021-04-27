@@ -27,7 +27,7 @@ function CheckListForm() {
         const item = values.input
         const state = checkListStore.getState()
         if (state.items.indexOf(item) > -1) {
-            console.log("Item added already."); //For now display the error in console.
+            dispatch(errorMessage("Item added already."));
             return;
         }
         dispatch(addItemAction(item))
