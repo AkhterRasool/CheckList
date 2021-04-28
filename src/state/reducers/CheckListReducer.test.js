@@ -22,11 +22,23 @@ test("Check if reducer adds item to list", () => {
 })
 
 
-test("Check if reducer removes item to list", () => {
+test("Check if reducer removes item from list", () => {
     const initialState = {
-        items : ['Buy Groceries', 'Do something fun']
+        items : [
+            {
+                id: 1,
+                description: 'Buy Groceries'
+            },
+            {
+                id: 2,
+                description: 'Do something fun'
+            }
+        ]
     }
-    const itemToRemove = 'Do something fun'
+    const itemToRemove = {
+        id: 2,
+        description: 'Do something fun'
+    }
     
     const action = {type: Actions.removeItem, payload: itemToRemove}
     const resultState = checkListReducer(initialState, action)

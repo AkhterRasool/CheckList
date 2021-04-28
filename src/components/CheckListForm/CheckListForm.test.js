@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/react"
 import { Provider } from "react-redux"
 import CheckListForm from '.'
-import checkListStore from "../../state/CheckListStore"
+import checkListStore from "../../state/store/CheckListStore"
 
 test("Check if form is rendered", () => {
 

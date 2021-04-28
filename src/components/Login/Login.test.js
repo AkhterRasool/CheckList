@@ -1,5 +1,7 @@
 import { fireEvent, queryAllByRole, render, screen } from "@testing-library/react"
+import { Provider } from "react-redux";
 import Login from '.'
+import checkListStore from "../../state/store/CheckListStore";
 
 function mockMatchMedia() {
     Object.defineProperty(window, 'matchMedia', {
@@ -18,10 +20,16 @@ function mockMatchMedia() {
 }
 
 test("Check if login form is displayed", () => {
+    const dummyUserValue = {
+      name: 'dummyuser',
+      password: 'dummydummy',
+      confirmPassword: 'dummydummy',
+      email: 'randomuser@dummy.com'
+    }
     mockMatchMedia()
-    render(<Login />)
+    render(<Provider store={checkListStore}><Login dummyUserValue={dummyUserValue}/></Provider>)
     expect(screen.queryByText('Login')).toBeTruthy()
-    expect(screen.getByLabelText('Username')).toBeTruthy()
+    expect(screen.getByLabelText('Email')).toBeTruthy()
     expect(screen.queryByRole('textbox')).toBeTruthy()
 
     expect(screen.getByLabelText('Password')).toBeTruthy()
