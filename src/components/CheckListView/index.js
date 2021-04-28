@@ -20,7 +20,7 @@ function CheckListView() {
                 {
                     items.map(item => {
                         return (
-                            <CheckListItemRow key={item} itemName={item}/> 
+                            <CheckListItemRow key={item._id} itemName={item.description} id={item._id} /> 
                         )
                     })
                 }

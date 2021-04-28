@@ -16,7 +16,7 @@ function CheckListItemRow(props) {
                     {props.itemName}
                 </td>
                 <td width='20%' className='td-remove'>
-                    <Button type="primary" onClick={() => dispatch(removeItemAction(props.itemName))} danger>Remove</Button>
+                    <Button type="primary" onClick={() => dispatch(removeItemAction(props.id, props.itemName))} danger>Remove</Button>
                 </td>
             </tr>
     );
