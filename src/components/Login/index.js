@@ -27,10 +27,8 @@ function Login(props) {
       email: values.email,
       password: values.password
     }).then(response => {
-      console.log(response);
       if (response.status === 200) {
         setSuccessMessage('Login Success.')
-        console.log(response.data.token)
         dispatch(login(response.data.token))
       }
     }).catch(error => {

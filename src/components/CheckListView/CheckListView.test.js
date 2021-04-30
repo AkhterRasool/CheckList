@@ -13,11 +13,6 @@ beforeEach(() => {
 test("Check if items are displayed when checklist has items", async () => {
     checkListStore.dispatch(login('this-string-is-a-dummy-token'))
     jest.mock('axios')
-    const mockedResponse = {
-        status: 201,
-        statusText: 'Created',
-        data: {}
-    }
     const listItems = {
         items : [
             {
@@ -30,20 +25,9 @@ test("Check if items are displayed when checklist has items", async () => {
             }
         ]
     }
-
-    axios.post = jest.fn().mockResolvedValue({
-        ...mockedResponse,
-        data: {
-            data: listItems.items[0]
-        }
-    })
+    mockAxiosPostResponse(listItems.items[0])
     await checkListStore.dispatch(addItemAction(listItems[0]))
-    axios.post = jest.fn().mockResolvedValue({
-        ...mockedResponse,
-        data: {
-            data: listItems.items[1]
-        }
-    })
+    mockAxiosPostResponse(listItems.items[1])
     await checkListStore.dispatch(addItemAction(listItems[1]))
     
     render(<Provider store={checkListStore}><CheckListView /></Provider>)
@@ -61,3 +45,13 @@ test("Check if no data list image is displayed when checklist has no items", () 
     expect(screen.queryByText('No items in list')).toBeInTheDocument()
     expect(screen.queryByRole('button')).not.toBeInTheDocument()
 })
+
+function mockAxiosPostResponse(responseData) {
+    axios.post = jest.fn().mockResolvedValue({
+        status: 201,
+        statusText: 'Created',
+        data: {
+            data: responseData
+        }
+    })
+}

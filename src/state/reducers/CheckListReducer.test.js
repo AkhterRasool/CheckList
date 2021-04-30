@@ -1,10 +1,11 @@
-import {fireEvent, render, screen, act} from '@testing-library/react'
-import Actions from '../../constants/Actions'
+import addItemAction from '../actioncreators/AddItemAction'
+import { login } from "../actioncreators/Login"
+import { logout } from '../actioncreators/Logout'
+import setMessage from '../actioncreators/MessageAction'
+import removeItemAction from '../actioncreators/RemoveItemAction'
+import setItems from '../actioncreators/SetItems'
 import checkListReducer from './CheckListReducer'
-import checkListStore from '../store/CheckListStore'
-import { Provider } from "react-redux"
 
-import Home from '../../components/Home'
 
 test("Check if reducer adds item to list", () => {
     const initialState = {
@@ -12,7 +13,7 @@ test("Check if reducer adds item to list", () => {
     }
     const newItem = 'Do something fun'
     
-    const action = {type: Actions.addItem, payload: newItem}
+    const action = addItemAction(newItem)
     const resultState = checkListReducer(initialState, action)
     const resultItems = resultState.items;
 
@@ -40,7 +41,7 @@ test("Check if reducer removes item from list", () => {
         description: 'Do something fun'
     }
     
-    const action = {type: Actions.removeItem, payload: itemToRemove}
+    const action = removeItemAction(itemToRemove.id, itemToRemove.description)
     const resultState = checkListReducer(initialState, action)
     const resultItems = resultState.items;
 
@@ -48,22 +49,65 @@ test("Check if reducer removes item from list", () => {
     expect(resultItems[0]).toBe(initialState.items[0])
 })
 
-test("Check if error message is displayed when item name is too short", () => {
-    const item = 'pop'
-    render(<Provider store={checkListStore}><Home /></Provider>)
-    const inputField = screen.queryByRole('textbox')
-    
-    act(() => { fireEvent.change(inputField, {target: {value: item}}) })
+test("Check if reducer executes login action", () => {
+    const initialState = {
+        user: {}
+    }
 
-    expect(screen.queryByText('Item must have at least 4 characters.')).toBeTruthy()
+    const token = 'dummy-token'
+    const action = login(token)
+    const resultState = checkListReducer(initialState, action)
+    
+    expect(resultState.user.isLoggedIn).toBe(true)
+    expect(resultState.user.token).toBe(token)
 })
 
-test("Check if error message is displayed when no item is added", () => {
-    render(<Provider store={checkListStore}><Home /></Provider>)
-    const inputField = screen.queryByRole('textbox')
-    const submitButton = screen.queryByRole('button')
+
+test("Check if reducer executes logout action", () => {
+    const initialState = {
+        user: {
+            isLoggedIn: true,
+            token: 'dummy-token'
+        }
+    }
+
+    const action = logout()
+    const resultState = checkListReducer(initialState, action)
     
-    act(() => {fireEvent.change(inputField, {target: {value: ''}}); return undefined;})
-    act(() => { fireEvent.click(submitButton); return undefined;})
-    expect(screen.queryByText('Item cannot be empty.')).toBeTruthy()
+    expect(resultState.user.isLoggedIn).toBe(false)
+    expect(resultState.user.token).toBeFalsy()
+})
+
+
+
+test("Check if reducer executes message action", () => {
+    const initialState = {}
+
+    const message = {
+        description: 'Please log in',
+        color: 'blue'
+    }
+    const action = setMessage(message.description, message.color)
+    const resultState = checkListReducer(initialState, action)
+    expect(resultState.message.description).toBe(message.description)
+    expect(resultState.message.color).toBe(message.textColor)
+})
+
+
+
+test("Check if reducer executes setItems action", () => {
+    const initialState = {}
+
+    const itemsToSet = [
+        {id: 1, description: 'Buy Groceries'},
+        {id: 2, description: 'Get a haircut'},
+        {id: 3, description: 'Pay bills'},
+    ]
+    const action = setItems(itemsToSet)
+    const resultState = checkListReducer(initialState, action)
+
+    expect(resultState.items.length).toBe(3)
+    expect(resultState.items[0].description).toBe(itemsToSet[0].description)
+    expect(resultState.items[1].description).toBe(itemsToSet[1].description)
+    expect(resultState.items[2].description).toBe(itemsToSet[2].description)
 })
